@@ -1,0 +1,11 @@
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Python.zip
+/.vs/decisions-mod-skeleton/v16/.suo
+/.vs/Python/v16/Server/sqlite3
+/.vs
+/Python/bin/Debug
+/Python/obj/Debug
+/Python/obj/Release
