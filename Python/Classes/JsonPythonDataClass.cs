@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DecisionsFramework.Data.DataTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,12 @@ namespace Python.Classes
 {
     public class InputParameter
     {
-        public object parameter { get; set; }
+        //public FileData file { get; set; }
+        public string fileName { get; set; }
+
+        //public bool NewFile { get; set; }
+
+        public string[] args { get; set; }
     }
     public class OutputParameter
     {

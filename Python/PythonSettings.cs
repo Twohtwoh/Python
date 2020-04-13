@@ -27,10 +27,12 @@ namespace Python
         {
             EntityName = "Python Module Settings";
         }
-        
+
 
         [ORMField]
         public string PythonDirectory { get; set; }
+        [ORMField]
+        public string PythonScriptDirectory { get; set; }
         //[ORMField]
         //public FileDataReference[] UploadFile { get; set; }
 

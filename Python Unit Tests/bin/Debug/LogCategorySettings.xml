@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ArrayOfLogCategorySetting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LogCategorySetting>
+    <CategoryName>Cache dictionary</CategoryName>
+    <LogFatal>false</LogFatal>
+    <LogError>false</LogError>
+    <LogWarn>false</LogWarn>
+    <LogInfo>false</LogInfo>
+    <LogDebug>false</LogDebug>
+    <LogToOwnFileName>false</LogToOwnFileName>
+  </LogCategorySetting>
+</ArrayOfLogCategorySetting>

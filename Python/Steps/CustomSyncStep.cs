@@ -1,4 +1,5 @@
 using DecisionsFramework.Design.Flow;
+using DecisionsFramework.ServiceLayer;
 using Python.Classes;
 using System;
 using System.Collections.Generic;
@@ -18,30 +19,39 @@ namespace Python.Steps
     [AutoRegisterMethodsOnClass(true, "Python Steps")]
     class CustomSyncStep
     {
-        public static string RunScript(InputParameter Inputs)
+        public static string RunScript(InputParameter InputVariables)
         {
-            using (Process process = new Process())
+            PythonSettings settings = ModuleSettingsAccessor<PythonSettings>.GetSettings();
+            //var pypath = "C:\\Users\\Corey\\AppData\\Local\\Programs\\Python\\Python37-32\\";
+            //var path = "C:\\Users\\Corey\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe";
+            var pypath = settings.PythonScriptDirectory;
+            var path = settings.PythonDirectory;
+            Process process = new Process();
+            process.StartInfo.FileName = "cmd.exe";
+            List<string> newArgs = new List<string>();
+            newArgs.Add(pypath + InputVariables.fileName);
+            newArgs.AddRange(InputVariables.args);
+
+            process.StartInfo.Arguments = "/c" + path + " " + String.Join(" ", newArgs); // Note the /c command (*)
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.Start();
+            //* Read the output (or the error)
+            string output = process.StandardOutput.ReadToEnd();
+            Console.WriteLine(output);
+            if (output == "")
+
             {
-                process.StartInfo.FileName = "ipconfig.exe";
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.RedirectStandardOutput = true;
-                process.Start();
-
-                // Synchronously read the standard output of the spawned process. 
-                StreamReader reader = process.StandardOutput;
-                string output = reader.ReadToEnd();
-                return output;
-
-                // Write the redirected output to this application's window.
-                //Console.WriteLine(output);
-
-                //process.WaitForExit();
+                string err = process.StandardError.ReadToEnd();
+                Console.WriteLine(err);
+                process.WaitForExit();
+                return err;
             }
-
-            //Console.WriteLine("\n\nPress any key to exit.");
-            //Console.ReadLine();
-           
+            process.WaitForExit();
+            return output;
             
+
 
         }
     }
